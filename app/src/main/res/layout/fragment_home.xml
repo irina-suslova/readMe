@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.home.HomeFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="8dp"
+        android:backgroundTint="@color/white"
+        android:background="@drawable/rounded_corner"
+        android:padding="8dp"
+        tools:ignore="ExtraText" >
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/textViewLine2"
+            android:layout_alignParentTop="true">
+
+            <RelativeLayout
+                android:id="@+id/constraintLayoutArticle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <TextView
+                    android:id="@+id/textViewArticleName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginBottom="4dp"
+                    android:textColor="@color/black_200"
+                    android:textSize="34sp"
+                    android:textStyle="bold"
+                    android:text="Name of an article" />
+
+                <TextView
+                    android:id="@+id/textViewArticleSource"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textViewArticleName"
+                    android:textColor="@color/gray_500"
+                    android:textSize="18sp"
+                    android:textStyle="italic"
+                    android:text="Source of the article" />
+
+                <TextView
+                    android:id="@+id/textViewLine1"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_margin="4dp"
+                    android:layout_below="@+id/textViewArticleSource"
+                    android:background="@drawable/rounded_corner"
+                    android:backgroundTint="@color/gray_200" />
+
+                <TextView
+                    android:id="@+id/textViewArticleText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/textViewLine1"
+                    android:textColor="@color/black"
+                    android:textSize="22sp"
+                    android:text="Text of the article" />
+
+            </RelativeLayout>
+
+        </ScrollView>
+
+        <TextView
+            android:id="@+id/textViewLine2"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:layout_above="@+id/linearLayoutButtons"
+            android:background="@drawable/rounded_corner"
+            android:backgroundTint="@color/gray_200" />
+
+        <LinearLayout
+            android:id="@+id/linearLayoutButtons"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:layout_margin="8dp"
+            android:layout_alignParentBottom="true" >
+
+            <Button
+                android:id="@+id/buttonPrevious"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginRight="4dp"
+                android:layout_weight="3"
+                android:backgroundTint="@color/gray_300" />
+
+            <RadioGroup
+                android:id="@+id/radioGroup"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
+                android:orientation="horizontal" >
+
+                <RadioButton
+                    android:id="@+id/radioButtonLike"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginRight="4dp"
+                    android:background="@drawable/radiobutton_like_selector"
+                    android:button="@null" />
+
+                <RadioButton
+                    android:id="@+id/radioButtonDislike"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="4dp"
+                    android:background="@drawable/radiobutton_dislike_selector"
+                    android:button="@null" />
+
+            </RadioGroup>
+
+
+            <Button
+                android:id="@+id/buttonNext"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:layout_marginLeft="4dp"
+                android:backgroundTint="@color/gray_300" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayoutSignes"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="8dp"
+            android:orientation="horizontal"
+            android:layout_alignParentBottom="true" >
+
+            <ImageView
+                android:id="@+id/imageViewPrevious"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginRight="4dp"
+                app:srcCompat="@drawable/ic_baseline_fast_rewind_24" />
+
+            <ImageView
+                android:id="@+id/imageViewLike"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
+                app:srcCompat="@drawable/ic_baseline_favorite_24" />
+
+            <ImageView
+                android:id="@+id/imageViewDislike"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
+                app:srcCompat="@drawable/ic_baseline_favorite_border_24" />
+
+            <ImageView
+                android:id="@+id/imageViewNext"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginLeft="4dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/ic_baseline_fast_forward_24" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

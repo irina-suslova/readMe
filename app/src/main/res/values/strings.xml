@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">ReadMe</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_settings">Settings</string>
+    <string name="title_profile">Profile</string>
+    <string name="nick">nick:</string>
+    <string name="name">name:</string>
+    <string name="logintext">Войдите в уже существующий аккаунт или создайте новый, чтобы иметь возможность отмечать понравившиеся тексты</string>
+</resources>
