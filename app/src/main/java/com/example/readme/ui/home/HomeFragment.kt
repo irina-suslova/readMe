@@ -1,5 +1,7 @@
 package com.example.readme.ui.home
 
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -9,7 +11,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.JsonObjectRequest
@@ -38,7 +39,6 @@ class HomeFragment : Fragment(), View.OnClickListener {
 
     lateinit var mRequestQueue : RequestQueue;
 
-    private lateinit var viewModel: HomeViewModel
     private lateinit var preferences: SharedPreferences
 
     var watchedTexts = mutableListOf<Int>();
@@ -110,6 +110,16 @@ class HomeFragment : Fragment(), View.OnClickListener {
         getTextById(JSON_URL, currentText)
         setValues();
 
+        sourceTextView.setOnClickListener {view ->
+            var link = JSON_URL + "share.php?text_id=$currentText";
+
+            val clipboard = requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val clip: ClipData = ClipData.newPlainText("Label", link)
+            clipboard.setPrimaryClip(clip)
+
+            Toast.makeText(activity, "Ссылка скопирована в буфер обмена", Toast.LENGTH_SHORT).show()
+        }
+
     }
 
     private fun getPreviousText() {
@@ -168,17 +178,9 @@ class HomeFragment : Fragment(), View.OnClickListener {
         if (preferences.contains("userId")) {
             userId = preferences.getInt("userId", userId)
 
-            //userId = -1
 
         }
     }
-/*
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
-        // TODO: Use the ViewModel
-    }
-*/
 
     private fun setValues() {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
@@ -195,7 +197,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
 
     private fun setAction(action : Int) {
         // 0 - ничего
-        // 1- like
+        // 1 - like
         // 2 - dislike
         when (action) {
             0 -> radioGroup.clearCheck()
@@ -231,7 +233,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
                     sourceArticle = textObject.getString("source")
                     textArticle = textObject.getString("text")
                     setValues() // создадим метод setValues для присваивания значений переменным
-                    radioGroup.clearCheck()
+                    setAction(0)
                 } catch (e: JSONException) {
 
                     e.printStackTrace()
@@ -248,6 +250,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
             url + "texts.php?get_text_by_id=$id", null, { response ->
                 try {
                     val textObject = response.getJSONObject("textObject")
+
                     currentText = textObject.getInt("id")
                     nameArticle = textObject.getString("name")
                     sourceArticle = textObject.getString("source")
@@ -264,7 +267,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
     }
 
     private fun getAction(url: String) {
-        if (userId == -1) return
+        if (userId == -1) setAction(0)
         val request = JsonObjectRequest(
             Request.Method.GET,
             url + "actions.php?get_action&user_id=$userId&text_id=$currentText", null, { response ->

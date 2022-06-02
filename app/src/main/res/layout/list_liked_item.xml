@@ -4,17 +4,25 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
+    android:padding="5dp"
+    android:background="@drawable/item_liked_border"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/textViewLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="?attr/textAppearanceHeadline1"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
         android:id="@+id/textViewSmall"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textStyle="italic"
+        android:textColor="?attr/textAppearanceSubtitle1"
         android:textAppearance="?android:attr/textAppearanceSmall" />
+
 </LinearLayout>

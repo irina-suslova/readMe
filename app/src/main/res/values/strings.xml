@@ -8,4 +8,12 @@
     <string name="nick">nick:</string>
     <string name="name">name:</string>
     <string name="logintext">Войдите в уже существующий аккаунт или создайте новый, чтобы иметь возможность отмечать понравившиеся тексты</string>
+    <string name="sing_in">Авторизация</string>
+    <string name="register">Регистрация</string>
+    <string name="ellipsis">...</string>
+    <string name="best_texts">Лучшие тексты за неделю:</string>
+    <string name="send">Send</string>
+    <string name="name_settings">Имя</string>
+    <string name="change_name">Изменить имя пользователя:</string>
+    <string name="night_theme">Темная тема:</string>
 </resources>

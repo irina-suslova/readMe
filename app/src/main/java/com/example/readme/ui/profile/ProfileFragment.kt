@@ -106,15 +106,19 @@ class ProfileFragment : Fragment(), View.OnClickListener {
         recyclerViewFavourites.adapter = CustomRecyclerFavouritesAdapter(fillList(JSON_URL))
     }
 
-    private fun fillList(url: String): List<String> {
-        lateinit var likes : List<String>
+    private fun fillList(url: String): MutableList<List<String>> {
+        var likes: MutableList<List<String>> = mutableListOf();
         var checker = false
         val request = JsonObjectRequest(
             Request.Method.GET,
             url + "likes.php?get_likes&user_id=$userId", null, { response ->
                 try {
                     val LikesArray = response.getJSONArray("liked_texts_names")
-                    likes = LikesArray.join("\n").split("\n")
+                    val LikesArrayTexts = response.getJSONArray("liked_texts")
+                    val LikesArrayIDs = response.getJSONArray("liked_texts_ids")
+                    likes[0] = LikesArray.join("\n").split("\n")
+                    likes.add(LikesArrayTexts.join("\n").split("\n"));
+                    likes.add(LikesArrayIDs.join("\n").split("\n"));
                     checker = true
                     recyclerViewFavourites.adapter = CustomRecyclerFavouritesAdapter(likes)
                 } catch (e: JSONException) {
@@ -124,7 +128,7 @@ class ProfileFragment : Fragment(), View.OnClickListener {
             error.printStackTrace()
         }
         mRequestQueue.add(request)
-        if (!checker) likes = emptyList()
+        if (!checker) likes.add(emptyList())
         return likes
     }
 
@@ -148,6 +152,7 @@ class ProfileFragment : Fragment(), View.OnClickListener {
         if (preferences.contains("userId")) {
             userId = preferences.getInt("userId", userId)
         }
+        getValues()
     }
 
     private fun initState() {
@@ -167,6 +172,36 @@ class ProfileFragment : Fragment(), View.OnClickListener {
             relativeLayoutLogin.isVisible = false
             textViewUserNick.text = userNick
             textViewUserName.text = userName
+        }
+    }
+
+    private fun getValues() {
+        if (userId != -1) {
+            textViewUserNick.text = userNick
+            textViewUserName.text = userName
+            val request = JsonObjectRequest(
+                    Request.Method.GET,
+            JSON_URL + "users.php?get_user&user_id=$userId", null, { response ->
+                try {
+                    val userObject = response.getJSONObject("userObject")
+                    if (userObject.getBoolean("user") and userObject.getBoolean("success")) {
+                        userName = userObject.getString("name")
+                        userNick = userObject.getString("nick")
+                        textViewUserNick.text = userNick
+                        textViewUserName.text = userName
+                        setValues()
+                    }
+                    else {
+                        Toast.makeText(activity, "Ошибка при подключении к серверу", Toast.LENGTH_SHORT).show()
+                    }
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                }
+            }) { error ->
+                error.printStackTrace()
+            }
+            mRequestQueue.add(request)
+
         }
     }
 

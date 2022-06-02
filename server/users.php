@@ -13,12 +13,20 @@ if (isset($_GET['register'])) {
     $password = strval($_GET['password']);
     $sql_check = "SELECT * FROM `users` WHERE email='" . strval($email) . "'";
     $result = mysqli_query($con, $sql_check);
+    $checker = false;
     if (mysqli_fetch_array($result) != '') {
+        while((!$checker) && ($row=mysqli_fetch_array($result))) {
+            $sql_check_last = "SELECT * FROM `users` WHERE user_id='" . strval($row['user_id']) . "' ORDER BY ID DESC LIMIT 1";
+            $result_last = mysqli_query($con, $sql_check_last);
+            if (mysqli_fetch_array($result_last) != '') {
+                $checker = true;
+            }
+        }
         $json = (object) [
-            'duplicate' => true,
+            'duplicate' => $checker,
         ];
     }
-    else {
+    else if (!$checker) {
         $sql_last = 'SELECT MAX(user_id) AS max_user_id FROM `users`';
         $result = mysqli_query($con, $sql_last);
         $id = 0;
@@ -57,23 +65,55 @@ if (isset($_GET['sign_in'])) {
         ];
     }
     else {
-        $correct_password = strval($row['password']);
-        if ($correct_password != $password) {
+        $sql_check_double = "SELECT * FROM `users` WHERE user_id='" . strval($row['user_id']) . "' ORDER BY ID DESC LIMIT 1";
+        $result_check_double = mysqli_query($con, $sql_check_double);
+        $row_check_double = mysqli_fetch_array($result_check_double);
+
+        if (strcasecmp($row_check_double, $email) != 0) {
             $json = (object) [
-                'user' => true,
+                'user' => false,
                 'success' => false
             ];
         }
+
         else {
-            $json = (object) [
-                'user' => true,
-                'success' => true,
-                'name' => $row['name'],
-                'nick' => $row['nick'],
-                'id' => $row['user_id']
-            ];
+            $correct_password = strval($row_check_double['password']);
+            if ($correct_password != $password) {
+                $json = (object) [
+                    'user' => true,
+                    'success' => false
+                ];
+            }
+            else {
+                $json = (object) [
+                    'user' => true,
+                    'success' => true,
+                    'name' => $row_check_double['name'],
+                    'nick' => $row_check_double['nick'],
+                    'id' => $row_check_double['user_id']
+                ];
+            }
         }
     }
+    $jsonObject = (object) [
+        'userObject' => $json
+    ];
+    $jsonString = json_encode($jsonObject);
+    echo $jsonString;
+}
+if (isset($_GET['get_user'])) {
+    $user_id = strval($_GET['user_id']);
+    $sql = "SELECT * FROM `users` WHERE user_id='" . strval($user_id) . "' ORDER BY ID DESC LIMIT 1";
+    $result = mysqli_query($con, $sql);
+    $row = mysqli_fetch_array($result);
+    $json;
+    $json = (object) [
+        'user' => true,
+        'success' => true,
+        'name' => $row['name'],
+        'nick' => $row['nick'],
+        'id' => $row['user_id'],
+    ];
     $jsonObject = (object) [
         'userObject' => $json
     ];

@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="8dp"
-        android:backgroundTint="@color/white"
+        android:backgroundTint="?attr/backgroundColor"
         android:background="@drawable/rounded_corner"
         android:padding="8dp"
         tools:ignore="ExtraText" >
@@ -24,46 +24,52 @@
             <RelativeLayout
                 android:id="@+id/constraintLayoutArticle"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" >
+                android:layout_height="match_parent">
 
                 <TextView
                     android:id="@+id/textViewArticleName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
+                    android:layout_marginTop="2dp"
                     android:layout_marginBottom="4dp"
-                    android:textColor="@color/black_200"
+                    android:text="Name of an article"
+                    android:textColor="?attr/textAppearanceHeadline1"
                     android:textSize="34sp"
-                    android:textStyle="bold"
-                    android:text="Name of an article" />
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/textViewArticleSource"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/textViewArticleName"
-                    android:textColor="@color/gray_500"
+                    android:text="Source of the article"
+                    android:textColor="?attr/textAppearanceSubtitle1"
                     android:textSize="18sp"
-                    android:textStyle="italic"
-                    android:text="Source of the article" />
+                    android:textStyle="italic" />
 
                 <TextView
                     android:id="@+id/textViewLine1"
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
-                    android:layout_margin="4dp"
                     android:layout_below="@+id/textViewArticleSource"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginRight="4dp"
+                    android:layout_marginBottom="4dp"
                     android:background="@drawable/rounded_corner"
-                    android:backgroundTint="@color/gray_200" />
+                    android:backgroundTint="?attr/colorSecondaryVariant" />
 
                 <TextView
                     android:id="@+id/textViewArticleText"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_below="@+id/textViewLine1"
-                    android:textColor="@color/black"
-                    android:textSize="22sp"
-                    android:text="Text of the article" />
+                    android:text="Text of the article"
+                    android:textColor="?attr/textAppearanceBody1"
+                    android:textSize="22sp" />
 
             </RelativeLayout>
 
@@ -77,7 +83,7 @@
             android:layout_marginBottom="4dp"
             android:layout_above="@+id/linearLayoutButtons"
             android:background="@drawable/rounded_corner"
-            android:backgroundTint="@color/gray_200" />
+            android:backgroundTint="?attr/colorSecondaryVariant" />
 
         <LinearLayout
             android:id="@+id/linearLayoutButtons"
@@ -93,7 +99,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginRight="4dp"
                 android:layout_weight="3"
-                android:backgroundTint="@color/gray_300" />
+                android:backgroundTint="?attr/buttonStyle" />
 
             <RadioGroup
                 android:id="@+id/radioGroup"
@@ -124,14 +130,13 @@
 
             </RadioGroup>
 
-
             <Button
                 android:id="@+id/buttonNext"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="3"
                 android:layout_marginLeft="4dp"
-                android:backgroundTint="@color/gray_300" />
+                android:backgroundTint="?attr/buttonStyle" />
 
         </LinearLayout>
 
